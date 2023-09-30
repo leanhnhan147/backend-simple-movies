@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -22,7 +24,7 @@ public class Cast extends Auditable {
     private String name;
 
     @Column(name = "gender", nullable = false)
-    private String gender;
+    private String gender;  // 1 Female 2 Male
 
     @Column(name = "profile_path", nullable = false)
     private String profilePath;
