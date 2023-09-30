@@ -27,4 +27,7 @@ public class UpdateMovieForm {
     @NotEmpty(message = "Backdrop Path can not be null")
     @ApiModelProperty(name = "backdropPath", required = true)
     private String backdrop_path;
+
+    @ApiModelProperty(name = "status")
+    private Integer status;
 }

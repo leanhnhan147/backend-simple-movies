@@ -7,6 +7,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
 import java.util.Date;
 
 @MappedSuperclass

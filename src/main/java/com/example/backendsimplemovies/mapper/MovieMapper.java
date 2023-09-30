@@ -28,11 +28,12 @@ public interface MovieMapper {
     @Mapping(source = "overview", target = "overview")
     @Mapping(source = "poster_path", target = "posterPath")
     @Mapping(source = "backdrop_path", target = "backdropPath")
+    @Mapping(source = "status", target = "status")
     @BeanMapping(ignoreByDefault = true)
     @Named("adminUpdateMapping")
     void fromUpdateMovieFormToEntity(UpdateMovieForm updateMovieForm, @MappingTarget Movie movie);
 
-//    @Mapping(source = "id", target = "id")
+    @Mapping(source = "id", target = "id")
     @Mapping(source = "title", target = "title")
     @Mapping(source = "overview", target = "overview")
     @Mapping(source = "posterPath", target = "poster_path")
@@ -41,9 +42,9 @@ public interface MovieMapper {
     @Mapping(source = "voteAverage", target = "vote_average")
     @Mapping(source = "voteCount", target = "vote_count")
     @Mapping(source = "releaseDate", target = "release_date")
-//    @Mapping(source = "createdDate", target = "createdDate")
-//    @Mapping(source = "modifiedDate", target = "modifiedDate")
-//    @Mapping(source = "status", target = "status")
+    @Mapping(source = "createdDate", target = "createdDate")
+    @Mapping(source = "modifiedDate", target = "modifiedDate")
+    @Mapping(source = "status", target = "status")
     @BeanMapping(ignoreByDefault = true)
     @Named("adminGetMapping")
     MovieDto fromEntityToAdminDto(Movie movie);

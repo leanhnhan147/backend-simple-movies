@@ -4,14 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -24,7 +27,7 @@ public class Movie extends Auditable {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "overview", nullable = false)
+    @Column(name = "overview", nullable = false, columnDefinition = "varchar(500)")
     private String overview;
 
     @Column(name = "poster_path", nullable = false)
@@ -44,13 +47,13 @@ public class Movie extends Auditable {
     @Column(name = "release_date")
     private Date releaseDate;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany()
     @JoinTable(name = "movie_genre",
             joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id") )
     private List<Genre> genres = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany()
     @JoinTable(name = "movie_cast",
             joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "cast_id", referencedColumnName = "id") )
