@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Data
 public class UpdateMovieForm {
@@ -27,6 +28,9 @@ public class UpdateMovieForm {
     @NotEmpty(message = "Backdrop Path can not be null")
     @ApiModelProperty(name = "backdropPath", required = true)
     private String backdrop_path;
+
+    @ApiModelProperty(name = "releaseDate")
+    private Date release_date;
 
     @ApiModelProperty(name = "status")
     private Integer status;

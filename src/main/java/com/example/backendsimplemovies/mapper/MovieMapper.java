@@ -28,6 +28,7 @@ public interface MovieMapper {
     @Mapping(source = "overview", target = "overview")
     @Mapping(source = "poster_path", target = "posterPath")
     @Mapping(source = "backdrop_path", target = "backdropPath")
+    @Mapping(source = "release_date", target = "releaseDate")
     @Mapping(source = "status", target = "status")
     @BeanMapping(ignoreByDefault = true)
     @Named("adminUpdateMapping")
