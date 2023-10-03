@@ -9,7 +9,8 @@ import org.mapstruct.*;
 import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+        uses = {GenreMapper.class, CastMapper.class})
 public interface MovieMapper {
 
     @Mapping(source = "title", target = "title")
@@ -46,6 +47,8 @@ public interface MovieMapper {
     @Mapping(source = "createdDate", target = "createdDate")
     @Mapping(source = "modifiedDate", target = "modifiedDate")
     @Mapping(source = "status", target = "status")
+    @Mapping(source = "genres", target = "genres")
+    @Mapping(source = "casts", target = "casts")
     @BeanMapping(ignoreByDefault = true)
     @Named("adminGetMapping")
     MovieDto fromEntityToAdminDto(Movie movie);

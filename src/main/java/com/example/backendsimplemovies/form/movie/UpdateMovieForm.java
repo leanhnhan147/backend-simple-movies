@@ -34,4 +34,12 @@ public class UpdateMovieForm {
 
     @ApiModelProperty(name = "status")
     private Integer status;
+
+    @NotNull(message = "genres cant not be null")
+    @ApiModelProperty(name = "genres", required = true)
+    private Long[] genres;
+
+    @NotNull(message = "casts cant not be null")
+    @ApiModelProperty(name = "casts", required = true)
+    private Long[] casts;
 }

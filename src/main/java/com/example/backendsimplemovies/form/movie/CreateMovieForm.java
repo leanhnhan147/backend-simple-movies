@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
@@ -35,4 +36,12 @@ public class CreateMovieForm {
 
     @ApiModelProperty(name = "releaseDate")
     private Date release_date;
+
+    @NotNull(message = "genres cant not be null")
+    @ApiModelProperty(name = "genres", required = true)
+    private Long[] genres;
+
+    @NotNull(message = "casts cant not be null")
+    @ApiModelProperty(name = "casts", required = true)
+    private Long[] casts;
 }

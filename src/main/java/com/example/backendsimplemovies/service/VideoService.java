@@ -23,4 +23,6 @@ public interface VideoService {
     VideoDto updateVideo(UpdateVideoForm updateVideoForm);
 
     void deleteVideo(long id);
+
+    List<VideoDto> getVideoByMovieId(long movieId);
 }

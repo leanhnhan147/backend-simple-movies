@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -63,4 +64,13 @@ public class VideoController {
         apiMessageDto.setMessage("Delete video success");
         return apiMessageDto;
     }
+
+    @GetMapping(value = "/get-by-movie/{movieId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ApiMessageDto<List<VideoDto>> getVideoByMovieId(@PathVariable long movieId){
+        ApiMessageDto<List<VideoDto>> apiMessageDto = new ApiMessageDto<>();
+        apiMessageDto.setData(videoService.getVideoByMovieId(movieId));
+        apiMessageDto.setMessage("Get list video success");
+        return apiMessageDto;
+    }
+
 }

@@ -35,4 +35,14 @@ public interface GenreMapper {
 
     @IterableMapping(elementTargetType = GenreDto.class, qualifiedByName = "adminGetMapping")
     List<GenreDto> fromEntityListToGenreDtoList(List<Genre> genres);
+
+//    @Mapping(source = "id", target = "id")
+//    @Mapping(source = "name", target = "genreName")
+//    @BeanMapping(ignoreByDefault = true)
+//    @Named("genreGetMapping")
+//    GenreDto fromEntityToDto(Genre genre);
+//
+//    @IterableMapping(elementTargetType = GenreDto.class, qualifiedByName = "genreGetMapping")
+//    @Named("genresGetMapping")
+//    List<GenreDto> fromEntityListToDtoList(List<Genre> genres);
 }

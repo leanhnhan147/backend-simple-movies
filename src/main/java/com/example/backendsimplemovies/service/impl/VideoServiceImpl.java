@@ -77,4 +77,11 @@ public class VideoServiceImpl implements VideoService {
         video.setStatus(0);
         videoRepository.save(video);
     }
+
+    @Override
+    public List<VideoDto> getVideoByMovieId(long movieId) {
+        movieRepository.findById(movieId).orElseThrow(() -> new NotFoundException("Not found movie"));
+        List<Video> videos = videoRepository.findVideoByMovieId(movieId);
+        return videoMapper.fromEntityListToVideoDtoList(videos);
+    }
 }

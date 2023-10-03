@@ -1,6 +1,8 @@
 package com.example.backendsimplemovies.dto.Movie;
 
 import com.example.backendsimplemovies.dto.BasicAdminDto;
+import com.example.backendsimplemovies.entity.Cast;
+import com.example.backendsimplemovies.entity.Genre;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -39,4 +42,10 @@ public class MovieDto extends BasicAdminDto {
 
     @ApiModelProperty(name = "releaseDate")
     private Date release_date;
+
+    @ApiModelProperty(name = "genres")
+    private List<Genre> genres;
+
+    @ApiModelProperty(name = "casts")
+    private List<Cast> casts;
 }

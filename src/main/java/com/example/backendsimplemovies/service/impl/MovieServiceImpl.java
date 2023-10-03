@@ -2,12 +2,16 @@ package com.example.backendsimplemovies.service.impl;
 
 import com.example.backendsimplemovies.dto.Movie.MovieDto;
 import com.example.backendsimplemovies.dto.ResponseListDto;
+import com.example.backendsimplemovies.entity.Cast;
+import com.example.backendsimplemovies.entity.Genre;
 import com.example.backendsimplemovies.entity.Movie;
 import com.example.backendsimplemovies.entity.criteria.MovieCriteria;
 import com.example.backendsimplemovies.exception.NotFoundException;
 import com.example.backendsimplemovies.form.movie.CreateMovieForm;
 import com.example.backendsimplemovies.form.movie.UpdateMovieForm;
 import com.example.backendsimplemovies.mapper.MovieMapper;
+import com.example.backendsimplemovies.repository.CastRepository;
+import com.example.backendsimplemovies.repository.GenreRepository;
 import com.example.backendsimplemovies.repository.MovieRepository;
 import com.example.backendsimplemovies.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,6 +28,12 @@ public class MovieServiceImpl implements MovieService {
 
     @Autowired
     MovieRepository movieRepository;
+
+    @Autowired
+    GenreRepository genreRepository;
+
+    @Autowired
+    CastRepository castRepository;
 
     @Autowired
     MovieMapper movieMapper;
@@ -48,8 +59,26 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieDto createMovie(CreateMovieForm createMovieForm) {
-    Movie movie = movieMapper.fromCreateMovieFormToEntity(createMovieForm);
-    movieRepository.save(movie);
+        Movie movie = movieMapper.fromCreateMovieFormToEntity(createMovieForm);
+
+        List<Genre> genres = new ArrayList<>();
+        for(int i = 0; i< createMovieForm.getGenres().length;i++){
+            Genre genre = genreRepository.findById(createMovieForm.getGenres()[i]).orElse(null);
+            if(genre != null){
+                genres.add(genre);
+            }
+        }
+        List<Cast> casts = new ArrayList<>();
+        for(int i = 0; i< createMovieForm.getCasts().length;i++){
+            Cast cast = castRepository.findById(createMovieForm.getCasts()[i]).orElse(null);
+            if(cast != null){
+                casts.add(cast);
+            }
+        }
+
+        movie.setGenres(genres);
+        movie.setCasts(casts);
+        movieRepository.save(movie);
         return movieMapper.fromEntityToAdminDto(movie);
     }
 
@@ -58,6 +87,22 @@ public class MovieServiceImpl implements MovieService {
         Movie movie = movieRepository.findById(updateMovieForm.getId())
                 .orElseThrow(() -> new NotFoundException("Not found movie"));
         movieMapper.fromUpdateMovieFormToEntity(updateMovieForm, movie);
+        List<Genre> genres = new ArrayList<>();
+        for(int i = 0; i< updateMovieForm.getGenres().length;i++){
+            Genre genre = genreRepository.findById(updateMovieForm.getGenres()[i]).orElse(null);
+            if(genre != null){
+                genres.add(genre);
+            }
+        }
+        List<Cast> casts = new ArrayList<>();
+        for(int i = 0; i< updateMovieForm.getCasts().length;i++){
+            Cast cast = castRepository.findById(updateMovieForm.getCasts()[i]).orElse(null);
+            if(cast != null){
+                casts.add(cast);
+            }
+        }
+        movie.setGenres(genres);
+        movie.setCasts(casts);
         movieRepository.save(movie);
         return movieMapper.fromEntityToAdminDto(movie);
     }

@@ -43,4 +43,15 @@ public interface CastMapper {
 
     @IterableMapping(elementTargetType = CastDto.class, qualifiedByName = "adminGetMapping")
     List<CastDto> fromEntityListToCastDtoList(List<Cast> casts);
+
+//    @Mapping(source = "id", target = "id")
+//    @Mapping(source = "name", target = "castName")
+//    @Mapping(source = "profilePath", target = "profilePath")
+//    @BeanMapping(ignoreByDefault = true)
+//    @Named("castGetMapping")
+//    CastDto fromEntityToDto(Cast cast);
+//
+//    @IterableMapping(elementTargetType = CastDto.class, qualifiedByName = "castGetMapping")
+//    @Named("castsGetMapping")
+//    List<CastDto> fromEntityListToDtoList(List<Cast> casts);
 }
