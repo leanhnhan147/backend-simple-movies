@@ -46,14 +46,23 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public ResponseListDto<List<MovieDto>> getAllMovie(MovieCriteria movieCriteria, Pageable pageable) {
-        Page<Movie> moviePage =movieRepository.findAll(movieCriteria.getSpecification(), pageable);
+    public ResponseListDto<List<MovieDto>> getAllMovie(MovieCriteria movieCriteria, Pageable pageable, String type) {
         ResponseListDto<List<MovieDto>> responseListDto = new ResponseListDto<>();
-        responseListDto.setResults(movieMapper.fromEntityListToMovieDtoList(moviePage.getContent()));
-        responseListDto.setPage(pageable.getPageNumber());
-        responseListDto.setTotal_pages(moviePage.getTotalPages());
-        responseListDto.setTotal_results(moviePage.getTotalElements());
+        List<Movie> movies = new ArrayList<>();
 
+        if(type.equals("now_playing")) {
+            Page<Movie> moviePage = movieRepository.findAll(movieCriteria.getSpecification(), pageable);
+            responseListDto.setResults(movieMapper.fromEntityListToMovieDtoList(moviePage.getContent()));
+            responseListDto.setPage(pageable.getPageNumber());
+            responseListDto.setTotal_pages(moviePage.getTotalPages());
+            responseListDto.setTotal_results(moviePage.getTotalElements());
+        }else if(type.equals("top_rated")){
+            movies = movieRepository.findByOrderByVoteAverageDesc();
+            responseListDto.setResults(movieMapper.fromEntityListToMovieDtoList(movies));
+        }else if(type.equals("popular")){
+            movies = movieRepository.findByOrderByPopularityDesc();
+            responseListDto.setResults(movieMapper.fromEntityListToMovieDtoList(movies));
+        }
         return responseListDto;
     }
 

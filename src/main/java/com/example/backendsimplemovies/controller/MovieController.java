@@ -31,9 +31,9 @@ public class MovieController {
         return apiMessageDto;
     }
 
-    @GetMapping(value = "/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseListDto<?> getAllMovie(MovieCriteria movieCriteria, Pageable pageable){
-        return movieService.getAllMovie(movieCriteria, pageable);
+    @GetMapping(value = "/list/{type}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseListDto<?> getAllMovie(MovieCriteria movieCriteria, Pageable pageable, @PathVariable String type){
+        return movieService.getAllMovie(movieCriteria, pageable, type);
     }
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)

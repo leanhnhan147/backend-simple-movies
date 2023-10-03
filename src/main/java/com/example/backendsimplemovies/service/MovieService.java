@@ -14,7 +14,7 @@ public interface MovieService {
 
     MovieDto getMovieById(long id);
 
-    ResponseListDto<List<MovieDto>> getAllMovie(MovieCriteria movieCriteria, Pageable pageable);
+    ResponseListDto<List<MovieDto>> getAllMovie(MovieCriteria movieCriteria, Pageable pageable, String type);
 
     MovieDto createMovie(CreateMovieForm createMovieForm);
 
